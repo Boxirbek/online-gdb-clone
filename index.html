@@ -112,17 +112,62 @@ int main()
             "2": "#include <iostream>\nusing namespace std;\nint main() {\n    int k; cin >> k;\n    switch(k) {\n        case 1: cout << \"yomon\"; break;\n        case 2: cout << \"qoniqarsiz\"; break;\n        case 3: cout << \"qoniarli\"; break;\n        case 4: cout << \"yaxshi\"; break;\n        case 5: cout << \"a'lo\"; break;\n        default: cout << \"xato\";\n    }\n    return 0;\n}",
             "3": "#include <iostream>\nusing namespace std;\nint main() {\n    int oy; cin >> oy;\n    switch(oy) {\n        case 12: case 1: case 2: cout << \"qish\"; break;\n        case 3: case 4: case 5: cout << \"bahor\"; break;\n        case 6: case 7: case 8: cout << \"yoz\"; break;\n        case 9: case 10: case 11: cout << \"kuz\"; break;\n        default: cout << \"xato\";\n    }\n    return 0;\n}",
             "4": "#include <iostream>\nusing namespace std;\nint main() {\n    int oy; cin >> oy;\n    switch(oy) {\n        case 2: cout << \"28 kun\"; break;\n        case 4: case 6: case 9: case 11: cout << \"30 kun\"; break;\n        default: cout << \"31 kun\";\n    }\n    return 0;\n}",
-            "5": "#include <iostream>\nusing namespace std;\nint main() {\n    double a, b; int am; cin >> a >> b >> am;\n    switch(am) {\n        case 1: cout << a+b; break;\n        case 2: cout << a-b; break;\n        case 3: cout << a/b; break;\n        case 4: cout << a*b; break;\n    }\n    return 0;\n}"
+            "5": "#include <iostream>\nusing namespace std;\nint main() {\n    double a, b; int am; cin >> a >> b >> am;\n    switch(am) {\n        case 1: cout << a+b; break;\n        case 2: cout << a-b; break;\n        case 3: cout << a/b; break;\n        case 4: cout << a*b; break;\n    }\n    return 0;\n}",
+            "6": "#include <iostream>\nusing namespace std;\nint main() {\n    int b; double u; cin >> b >> u;\n    switch(b) {\n        case 1: cout << u*0.1; break;\n        case 2: cout << u*1000; break;\n        case 3: cout << u; break;\n        case 4: cout << u*0.001; break;\n        case 5: cout << u*0.01; break;\n    }\n    return 0;\n}",
+            "7": "#include <iostream>\nusing namespace std;\nint main() {\n    int b; double q; cin >> b >> q;\n    switch(b) {\n        case 1: cout << q; break;\n        case 2: cout << q*0.000001; break;\n        case 3: cout << q*0.001; break;\n        case 4: cout << q*1000; break;\n        case 5: cout << q*100; break;\n    }\n    return 0;\n}",
+            "8": "#include <iostream>\nusing namespace std;\nint main() {\n    int d, m; cin >> d >> m;\n    cout << d << \"-oy\";\n    return 0;\n}",
+            "9": "#include <iostream>\nusing namespace std;\nint main() {\n    int d, m; cin >> d >> m;\n    d++; cout << d << \".\" << m;\n    return 0;\n}",
+            "10": "#include <iostream>\nusing namespace std;\nint main() {\n    char y; int k; cin >> y >> k;\n    cout << \"Yo'nalish o'zgardi\";\n    return 0;\n}"
         },
         "if": {
             "1": "#include <iostream>\nusing namespace std;\nint main() { int n; cin >> n; if(n>0) n++; cout << n; return 0; }",
             "2": "#include <iostream>\nusing namespace std;\nint main() { int n; cin >> n; if(n>0) n++; else n-=2; cout << n; return 0; }",
             "3": "#include <iostream>\nusing namespace std;\nint main() { int n; cin >> n; if(n>0) n++; else if(n<0) n-=2; else n=10; cout << n; return 0; }",
-            "4": "#include <iostream>\nusing namespace std;\nint main() { int a,b,c,s=0; cin>>a>>b>>c; if(a>0)s++; if(b>0)s++; if(c>0)s++; cout<<s; return 0; }"
+            "4": "#include <iostream>\nusing namespace std;\nint main() { int a,b,c,s=0; cin>>a>>b>>c; if(a>0)s++; if(b>0)s++; if(c>0)s++; cout<<s; return 0; }",
+            "5": "#include <iostream>\nusing namespace std;\nint main() { int a,b,c,p=0,m=0; cin>>a>>b>>c; if(a>0)p++; else if(a<0)m++; if(b>0)p++; else if(b<0)m++; if(c>0)p++; else if(c<0)m++; cout<<\"+\"<<p<<\"-\"<<m; return 0; }",
+            "6": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; cout<<(a>b?a:b); return 0; }",
+            "7": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; cout<<(a<b?1:2); return 0; }",
+            "8": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; if(a>b) cout<<a<<\" \"<<b; else cout<<b<<\" \"<<a; return 0; }",
+            "9": "#include <iostream>\nusing namespace std;\nint main() { double a,b; cin>>a>>b; if(a>b) {double t=a; a=b; b=t;} cout<<a<<\" \"<<b; return 0; }",
+            "10": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; if(a!=b) a=b=a+b; else a=b=0; cout<<a<<\" \"<<b; return 0; }"
         },
         "while": {
             "1": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; while(a>=b) a-=b; cout<<a; return 0; }",
-            "2": "#include <iostream>\nusing namespace std;\nint main() { int a,b,s=0; cin>>a>>b; while(a>=b) {a-=b; s++;} cout<<s; return 0; }"
+            "2": "#include <iostream>\nusing namespace std;\nint main() { int a,b,s=0; cin>>a>>b; while(a>=b) {a-=b; s++;} cout<<s; return 0; }",
+            "3": "#include <iostream>\nusing namespace std;\nint main() { int n,k,b=0; cin>>n>>k; while(n>=k) {n-=k; b++;} cout<<b<<\" \"<<n; return 0; }",
+            "4": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; while(n>1){if(n%3!=0) break; n/=3;} cout<<(n==1?\"Ha\":\"Yoq\"); return 0; }",
+            "5": "#include <iostream>\nusing namespace std;\nint main() { int n,k=0; cin>>n; while(n>1){n/=2; k++;} cout<<k; return 0; }",
+            "6": "#include <iostream>\nusing namespace std;\nint main() { int n; double r=1; cin>>n; while(n>0){r*=n; n-=2;} cout<<r; return 0; }",
+            "7": "#include <iostream>\nusing namespace std;\nint main() { int n,k=1; cin>>n; while(k*k<=n) k++; cout<<k; return 0; }",
+            "8": "#include <iostream>\nusing namespace std;\nint main() { int n,k=1; cin>>n; while((k+1)*(k+1)<=n) k++; cout<<k; return 0; }",
+            "9": "#include <iostream>\nusing namespace std;\nint main() { int n,k=1,p=3; cin>>n; while(p<=n){p*=3; k++;} cout<<k; return 0; }",
+            "10": "#include <iostream>\nusing namespace std;\nint main() { int n,k=0,p=1; cin>>n; while(p*3<=n){p*=3; k++;} cout<<k; return 0; }"
+        },
+        "integer": {
+            "1": "#include <iostream>\nusing namespace std;\nint main() { int l; cin>>l; cout<<l/100; return 0; }",
+            "2": "#include <iostream>\nusing namespace std;\nint main() { int m; cin>>m; cout<<m/1000; return 0; }",
+            "3": "#include <iostream>\nusing namespace std;\nint main() { int b; cin>>b; cout<<b/1024; return 0; }",
+            "4": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; cout<<a/b; return 0; }",
+            "5": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; cout<<a%b; return 0; }",
+            "6": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; cout<<n/10<<\" \"<<n%10; return 0; }",
+            "7": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; cout<<n/10+n%10; return 0; }",
+            "8": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; cout<<(n%10)*10+n/10; return 0; }",
+            "9": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; cout<<n/100; return 0; }",
+            "10": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; cout<<n%10<<\" \"<<(n/10)%10; return 0; }",
+            "11": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; cout<<n/100+(n/10)%10+n%10; return 0; }",
+            "12": "#include <iostream>\nusing namespace std;\nint main() { int n; cin>>n; cout<<(n%10)*100+((n/10)%10)*10+n/100; return 0; }"
+        },
+        "for": {
+            "1": "#include <iostream>\nusing namespace std;\nint main() { int k,n; cin>>k>>n; for(int i=0;i<n;i++) cout<<k<<\" \"; return 0; }",
+            "2": "#include <iostream>\nusing namespace std;\nint main() { int a,b,c=0; cin>>a>>b; for(int i=a;i<=b;i++){cout<<i<<\" \"; c++;} cout<<endl<<c; return 0; }",
+            "3": "#include <iostream>\nusing namespace std;\nint main() { int a,b,c=0; cin>>a>>b; for(int i=b-1;i>a;i--){cout<<i<<\" \"; c++;} cout<<endl<<c; return 0; }",
+            "4": "#include <iostream>\nusing namespace std;\nint main() { double n; cin>>n; for(int i=1;i<=10;i++) cout<<i*n<<endl; return 0; }",
+            "5": "#include <iostream>\nusing namespace std;\nint main() { double n; cin>>n; for(double i=0.1;i<=1.0;i+=0.1) cout<<i*n<<endl; return 0; }",
+            "6": "#include <iostream>\nusing namespace std;\nint main() { double n; cin>>n; for(double i=1.2;i<=2.0;i+=0.2) cout<<i*n<<endl; return 0; }",
+            "7": "#include <iostream>\nusing namespace std;\nint main() { int a,b,s=0; cin>>a>>b; for(int i=a;i<=b;i++) s+=i; cout<<s; return 0; }",
+            "8": "#include <iostream>\nusing namespace std;\nint main() { int a,b; long long p=1; cin>>a>>b; for(int i=a;i<=b;i++) p*=i; cout<<p; return 0; }",
+            "9": "#include <iostream>\nusing namespace std;\nint main() { int a,b; long long s=0; cin>>a>>b; for(int i=a;i<=b;i++) s+=i*i; cout<<s; return 0; }",
+            "10": "#include <iostream>\nusing namespace std;\nint main() { int n; double s=0; cin>>n; for(int i=1;i<=n;i++) s+=1.0/i; cout<<s; return 0; }"
         }
     };
 
