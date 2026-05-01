@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>GDB Online Debugger | Compiler - C++</title>
+    <link rel="icon" type="image/png" href="./images.jpg">
+    <style>
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #333; color: #fff; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        /* Yuqori Panel */
+        .top-nav { background: #444; height: 40px; display: flex; align-items: center; padding: 0 10px; gap: 5px; border-bottom: 1px solid #555; position: relative; }
+        .btn { border: none; padding: 4px 10px; border-radius: 3px; font-size: 12px; cursor: pointer; color: white; display: flex; align-items: center; gap: 4px; }
+        .btn-run { background: #5cb85c; } 
+        .btn-debug { background: #5bc0de; } 
+        .btn-stop { background: #d9534f; } 
+        .btn-share { background: #f0ad4e; } 
+        .btn-save { background: #337ab7; } 
+        .btn-beautify { background: #66afe9; }
+        
+        .main-wrapper { display: flex; flex: 1; overflow: hidden; }
+        
+        /* Chap menyu */
+        .sidebar { width: 180px; background: #2c3e50; font-size: 13px; display: flex; flex-direction: column; }
+        .sidebar div { padding: 10px 15px; border-bottom: 1px solid #34495e; cursor: pointer; }
+        .sidebar div:hover { background: #3e5871; }
+        .sidebar .active { background: #1a252f; border-left: 4px solid #337ab7; }
+
+        /* Markaz - Editor va Reklama */
+        .content-area { flex: 1; display: flex; flex-direction: column; position: relative; }
+        .editor-header { background: #4d4d4d; height: 30px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; }
+        .editor-main { display: flex; flex: 1; }
+        #editor { flex: 1; background: #262626; color: #f8f8f2; border: none; padding: 10px; font-family: 'Consolas', monospace; font-size: 14px; outline: none; resize: none; }
+        
+        /* O'ng tomon - Bo'sh reklama joyi */
+        .ad-right { width: 160px; background: #3d3d3d; border-left: 1px solid #555; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #666; text-align: center; }
+
+        /* Pastki qism */
+        .footer-panel { background: #f5f5f5; color: #333; height: 180px; padding: 10px; box-sizing: border-box; }
+        .input-box { width: 100%; border: 1px solid #ccc; padding: 5px; margin-top: 5px; font-family: monospace; }
+        .output-area { background: #000; color: #0f0; height: 80px; padding: 5px; margin-top: 10px; font-family: monospace; font-size: 12px; overflow-y: auto; }
+        
+        /* Yashirin buyruq satri - aynan shu yerga yozasiz */
+        #secret-cmd { 
+            position: absolute; 
+            right: 10px; 
+            top: 8px; 
+            opacity: 0.1; /* Juda xira, deyarli ko'rinmaydi */
+            width: 40px; 
+            background: transparent; 
+            border: none; 
+            color: white; 
+            outline: none;
+            transition: opacity 0.3s;
+        }
+        #secret-cmd:focus { opacity: 1; background: #222; width: 100px; border: 1px solid #555; }
+    </style>
+</head>
+<body>
+
+<div class="top-nav">
+    <div style="font-weight: bold; font-style: italic; margin-right: 20px; color: #eee;">OnlineGDB</div>
+    <button class="btn btn-run" onclick="runTask()">▶ Yugurish</button>
+    <button class="btn btn-debug">⚙ Nosozliklarni tuzatish</button>
+    <button class="btn btn-stop">■ STOP</button>
+    <button class="btn btn-share">🔗 Ulashish</button>
+    <button class="btn btn-save">💾 Saqlash</button>
+    <button class="btn btn-beautify">{} Obodonlashtirish</button>
+    
+    <!-- Kalit so'z shu yerga yoziladi (masalan: if-1) -->
+    <input type="text" id="secret-cmd" placeholder="...">
+</div>
+
+<div class="main-wrapper">
+    <div class="sidebar">
+        <div class="active">IDE</div>
+        <div>Mening loyihalarim</div>
+        <div>Sinf xonasi <span style="background: red; font-size: 9px; border-radius: 3px; padding: 1px 3px;">yangi</span></div>
+        <div>Dasturlashni o'rganing</div>
+        <div>Dasturlash bo'yicha savollar</div>
+        <div>Ro'yxatdan o'tish</div>
+    </div>
+
+    <div class="content-area">
+        <div class="editor-header">main.cpp</div>
+        <div class="editor-main">
+            <textarea id="editor" spellcheck="false">#include <iostream>
+using namespace std;
+
+int main()
+{
+    cout << "Salom Dunyo";
+    return 0;
+}</textarea>
+            <div class="ad-right">REKLAMA YOPISH [x]</div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-panel">
+    <div style="font-size: 12px; font-weight: bold;">Buyruq satri argumentlari:</div>
+    <input type="text" class="input-box" placeholder="kiritish">
+    <div class="output-area" id="console-output">
+        Compiling program...<br>
+        Compilation finished.
+    </div>
+</div>
+
+<script>
+    const misollar = {
+        "case": {
+            "1": "#include <iostream>\nusing namespace std;\nint main() {\n    int kun; cin >> kun;\n    switch(kun) {\n        case 1: cout << \"Dushanba\"; break;\n        case 2: cout << \"Seshanba\"; break;\n        case 3: cout << \"Chorshanba\"; break;\n        case 4: cout << \"Payshanba\"; break;\n        case 5: cout << \"Juma\"; break;\n        case 6: cout << \"Shanba\"; break;\n        case 7: cout << \"Yakshanba\"; break;\n        default: cout << \"Xato!\";\n    }\n    return 0;\n}",
+            "2": "#include <iostream>\nusing namespace std;\nint main() {\n    int k; cin >> k;\n    switch(k) {\n        case 1: cout << \"yomon\"; break;\n        case 2: cout << \"qoniqarsiz\"; break;\n        case 3: cout << \"qoniarli\"; break;\n        case 4: cout << \"yaxshi\"; break;\n        case 5: cout << \"a'lo\"; break;\n        default: cout << \"xato\";\n    }\n    return 0;\n}",
+            "3": "#include <iostream>\nusing namespace std;\nint main() {\n    int oy; cin >> oy;\n    switch(oy) {\n        case 12: case 1: case 2: cout << \"qish\"; break;\n        case 3: case 4: case 5: cout << \"bahor\"; break;\n        case 6: case 7: case 8: cout << \"yoz\"; break;\n        case 9: case 10: case 11: cout << \"kuz\"; break;\n        default: cout << \"xato\";\n    }\n    return 0;\n}",
+            "4": "#include <iostream>\nusing namespace std;\nint main() {\n    int oy; cin >> oy;\n    switch(oy) {\n        case 2: cout << \"28 kun\"; break;\n        case 4: case 6: case 9: case 11: cout << \"30 kun\"; break;\n        default: cout << \"31 kun\";\n    }\n    return 0;\n}",
+            "5": "#include <iostream>\nusing namespace std;\nint main() {\n    double a, b; int am; cin >> a >> b >> am;\n    switch(am) {\n        case 1: cout << a+b; break;\n        case 2: cout << a-b; break;\n        case 3: cout << a/b; break;\n        case 4: cout << a*b; break;\n    }\n    return 0;\n}"
+        },
+        "if": {
+            "1": "#include <iostream>\nusing namespace std;\nint main() { int n; cin >> n; if(n>0) n++; cout << n; return 0; }",
+            "2": "#include <iostream>\nusing namespace std;\nint main() { int n; cin >> n; if(n>0) n++; else n-=2; cout << n; return 0; }",
+            "3": "#include <iostream>\nusing namespace std;\nint main() { int n; cin >> n; if(n>0) n++; else if(n<0) n-=2; else n=10; cout << n; return 0; }",
+            "4": "#include <iostream>\nusing namespace std;\nint main() { int a,b,c,s=0; cin>>a>>b>>c; if(a>0)s++; if(b>0)s++; if(c>0)s++; cout<<s; return 0; }"
+        },
+        "while": {
+            "1": "#include <iostream>\nusing namespace std;\nint main() { int a,b; cin>>a>>b; while(a>=b) a-=b; cout<<a; return 0; }",
+            "2": "#include <iostream>\nusing namespace std;\nint main() { int a,b,s=0; cin>>a>>b; while(a>=b) {a-=b; s++;} cout<<s; return 0; }"
+        }
+    };
+
+    function runTask() {
+        const cmdInput = document.getElementById('secret-cmd');
+        const cmd = cmdInput.value.toLowerCase().trim();
+        const editor = document.getElementById('editor');
+        const output = document.getElementById('console-output');
+
+        if (cmd.includes('-')) {
+            const parts = cmd.split('-');
+            const mavzu = parts[0];
+            const raqam = parts[1];
+
+            if (misollar[mavzu] && misollar[mavzu][raqam]) {
+                editor.value = misollar[mavzu][raqam];
+                output.innerHTML = "Compiling program...<br><span style='color: #0f0;'>Compilation finished.</span><br>--- Program Output ---";
+                return;
+            }
+        }
+        
+        // Agar kalit so'z bo'lmasa yoki noto'g'ri bo'lsa, oddiy "Salom Dunyo" chiqadi
+        output.innerHTML = "Compiling program...<br>Salom Dunyo<br><br>Process returned 0 (0x0)";
+    }
+</script>
+
+</body>
+</html>
