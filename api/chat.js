@@ -1,7 +1,5 @@
 export default async function handler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Faqat POST so\'rovlari' });
-    }
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Faqat POST' });
 
     const { prompt } = req.body;
     const apiKey = process.env.GEMINI_API_KEY;
@@ -16,13 +14,9 @@ export default async function handler(req, res) {
         });
 
         const data = await response.json();
-        
-        if (data.candidates && data.candidates[0].content.parts[0].text) {
-            res.status(200).json({ text: data.candidates[0].content.parts[0].text });
-        } else {
-            res.status(500).json({ text: "AI javob bera olmadi." });
-        }
+        const aiText = data.candidates[0].content.parts[0].text;
+        res.status(200).json({ text: aiText });
     } catch (error) {
-        res.status(500).json({ text: "Serverda xatolik." });
+        res.status(500).json({ error: 'Server xatosi' });
     }
 }
